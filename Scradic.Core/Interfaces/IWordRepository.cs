@@ -4,11 +4,11 @@ namespace Scradic.Core.Interfaces
 {
     public interface IWordRepository
     {
-        Task SaveWordAsync(Word word);
-        Task<List<Word>> GetAllSavedWords();
-        Task UpdateWordAsync(Word word);
+        Task<Word> IncrementHints(Word word);
         bool CheckWordExists(string wordTitle);
         Task<Word> GetWordByTitleAsync(string wordTitle);
-        Task<Word> IncrementHints(Word word);
+        Task SaveWordAsync(Word word);
+        Task UpdateWordAsync(Word word);
+        Task<List<Word>> GetAllSavedWords();
     }
 }

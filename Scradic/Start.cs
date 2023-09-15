@@ -35,7 +35,6 @@ namespace Scradic
         {
             _service = wordService;
             _cache = memoryCache;
-            _service.GetAllSavedWordsToCache();
         }
 
         private async Task ShowIncrementAndCachingWord(Word word)

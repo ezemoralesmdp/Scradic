@@ -16,21 +16,12 @@ namespace Scradic.Infrastructure.Repositories
             _entity = context.Set<Word>();
         }
 
-        public async Task SaveWordAsync(Word word)
+        public async Task<Word> IncrementHints(Word word)
         {
-            _entity.Add(word);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<Word>> GetAllSavedWords()
-        {
-            return await _entity.Include(w => w.Definitions).Include(w => w.Examples).AsQueryable().AsNoTracking().ToListAsync();
-        }
-
-        public async Task UpdateWordAsync(Word word)
-        {
+            word.Hits++;
             _entity.Update(word);
             await _context.SaveChangesAsync();
+            return word;
         }
 
         public bool CheckWordExists(string wordTitle)
@@ -46,12 +37,21 @@ namespace Scradic.Infrastructure.Repositories
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<Word> IncrementHints(Word word)
+        public async Task SaveWordAsync(Word word)
         {
-            word.Hits++;
+            _entity.Add(word);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateWordAsync(Word word)
+        {
             _entity.Update(word);
             await _context.SaveChangesAsync();
-            return word;
+        }
+
+        public async Task<List<Word>> GetAllSavedWords()
+        {
+            return await _entity.Include(w => w.Definitions).Include(w => w.Examples).AsQueryable().AsNoTracking().ToListAsync();
         }
     }
 }
