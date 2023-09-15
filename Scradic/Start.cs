@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Scradic.Core.Entities;
 using Scradic.Core.Interfaces;
 using Scradic.Interfaces;
+using Scradic.Services.Utils;
 using Scradic.Utils;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,10 +21,7 @@ namespace Scradic
             "!remove",
             "!removeall",
             "!clear",
-            "!seepdf",
-            "!top100",
-            "!top50",
-            "!top15" 
+            "!seepdf"
         };
 
         private string? inputFormatted = "";
@@ -181,6 +179,15 @@ namespace Scradic
                                 await _service.AddToPdf(word);
                         }
                     }
+                }
+
+                if (inputFormatted.StartsWith("!top"))
+                {
+                    var numberPart = inputFormatted.Substring(4);
+                    if (int.TryParse(numberPart, out int number))
+                        await _service.ShowTop(number);
+                    else
+                        ErrorMessage.Syntax();
                 }
 
             } while(inputFormatted != "!exit");

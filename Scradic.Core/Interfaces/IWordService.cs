@@ -10,5 +10,6 @@ namespace Scradic.Core.Interfaces
         Task<Word> GetWordByTitleAsync(string wordTitle);
         Task SaveWordAsync(Word word);
         Task AddToPdf(Word word);
+        Task ShowTop(int amount);
     }
 }

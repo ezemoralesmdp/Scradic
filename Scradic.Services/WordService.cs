@@ -1,5 +1,6 @@
 ﻿using Scradic.Core.Entities;
 using Scradic.Core.Interfaces;
+using Scradic.Services.Utils;
 
 namespace Scradic.Services
 {
@@ -97,6 +98,32 @@ namespace Scradic.Services
         {
             word.Pdf = true;
             await _repository.UpdateWordAsync(word);
+        }
+
+        public async Task ShowTop(int amount)
+        {
+            var topList = await _repository.GetTop(amount);
+
+            if (topList.Count > 0)
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine($"[TOP {amount}]");
+                Console.ResetColor();
+                for (int i = 0; i < topList.Count; i++)
+                {
+                    Console.Write($"ID: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write(topList[i].Id);
+                    Console.ResetColor();
+                    Console.Write(" | " + topList[i].Title + " | HITS: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(topList[i].Hits);
+                    Console.ResetColor();
+                }
+            }
+            else
+                ErrorMessage.NoWordsAvailable();
         }
     }
 }
