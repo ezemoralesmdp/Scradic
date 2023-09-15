@@ -53,5 +53,10 @@ namespace Scradic.Infrastructure.Repositories
         {
             return await _entity.Include(w => w.Definitions).Include(w => w.Examples).AsQueryable().AsNoTracking().ToListAsync();
         }
+
+        public async Task<List<Word>> GetTop(int amount)
+        {
+            return await _entity.AsQueryable().AsNoTracking().Take(amount).ToListAsync();
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace Scradic.Core.Interfaces
         Task SaveWordAsync(Word word);
         Task UpdateWordAsync(Word word);
         Task<List<Word>> GetAllSavedWords();
+        Task<List<Word>> GetTop(int amount);
     }
 }
