@@ -47,7 +47,7 @@ namespace Scradic
         {
             do
             {
-                if (Ask.EnterWordToSearchTranslate_Ask(out inputFormatted)) Formatter.SanitizeDataInput(inputFormatted);
+                if (Ask.EnterWordToSearchTranslate(out inputFormatted)) Formatter.SanitizeDataInput(inputFormatted);
                 Word? word = new();
 
                 if (!string.IsNullOrEmpty(inputFormatted) && !keyWords.Contains(inputFormatted))
@@ -185,12 +185,18 @@ namespace Scradic
                                 _service.ShowWord(word);
                                 await _service.SaveWordAsync(word);
 
-                                if (!string.IsNullOrEmpty(word.Title) && Ask.WordToPdf_Ask(word.Title))
+                                if (!string.IsNullOrEmpty(word.Title) && Ask.WordToPdf(word.Title))
                                     await _service.AddToPdf(word);
                             }
                         }
                     }
                 }
+
+                if(inputFormatted == "!pdf")
+                    await _service.CreatePDF();
+
+                if (inputFormatted == "!seepdf")
+                    await _service.SeePDFList();
 
             } while(inputFormatted != "!exit");
         }

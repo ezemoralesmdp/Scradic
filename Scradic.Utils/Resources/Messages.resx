@@ -117,10 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EnterWordToSearchTranslate_Ask" xml:space="preserve">
+    <value>Enter the command or word you want to search/translate:</value>
+  </data>
   <data name="NoWordsAvailable" xml:space="preserve">
     <value>There are no words available. The list is empty.</value>
   </data>
+  <data name="OnlyNumericCharacters" xml:space="preserve">
+    <value>You must insert only numeric characters.</value>
+  </data>
+  <data name="PdfFolderDoesNotExist" xml:space="preserve">
+    <value>The folder does not exist.</value>
+  </data>
+  <data name="PdfFolderEmpty" xml:space="preserve">
+    <value>No PDF files found in the folder.</value>
+  </data>
+  <data name="PdfIndexDoesNotExist" xml:space="preserve">
+    <value>The PDF index does not exist, please enter a valid one.</value>
+  </data>
+  <data name="Pdf_Files" xml:space="preserve">
+    <value>PDF files in the folder:</value>
+  </data>
+  <data name="SavePdf_Ask" xml:space="preserve">
+    <value>PDF has been created successfully. Do you want to open it?</value>
+  </data>
+  <data name="SeePdf_Ask" xml:space="preserve">
+    <value>Enter the number of the PDF you want to open (0 to exit):</value>
+  </data>
   <data name="SyntaxError" xml:space="preserve">
     <value>Syntax error, please try again.</value>
+  </data>
+  <data name="WordToPdf_Ask_1" xml:space="preserve">
+    <value>Do you want to save the word</value>
+  </data>
+  <data name="WordToPdf_Ask_2" xml:space="preserve">
+    <value>to PDF file? </value>
   </data>
 </root>

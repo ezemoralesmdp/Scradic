@@ -58,5 +58,10 @@ namespace Scradic.Infrastructure.Repositories
         {
             return await _entity.AsQueryable().AsNoTracking().Take(amount).ToListAsync();
         }
+
+        public async Task<List<Word>> GetAllToPdfAsync()
+        {
+            return await _entity.AsQueryable().AsNoTracking().Include(w => w.Definitions).Include(w => w.Examples).Where(w => w.Pdf == true).ToListAsync();
+        }
     }
 }

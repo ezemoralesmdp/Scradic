@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Scradic.Core.Resources {
+namespace Scradic.Utils.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Scradic.Core.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scradic.Core.Resources.Globals", typeof(Globals).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scradic.Utils.Resources.Globals", typeof(Globals).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,38 @@ namespace Scradic.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [!] .
+        ///   Looks up a localized string similar to ANSWER:.
+        /// </summary>
+        public static string Answer {
+            get {
+                return ResourceManager.GetString("Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [SEE PDF].
+        /// </summary>
+        public static string SeePDF {
+            get {
+                return ResourceManager.GetString("SeePDF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [!].
         /// </summary>
         public static string Warning {
             get {
                 return ResourceManager.GetString("Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [y/n].
+        /// </summary>
+        public static string Y_N {
+            get {
+                return ResourceManager.GetString("Y_N", resourceCulture);
             }
         }
     }

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scradic", "Scradic\Scradic.csproj", "{5713CC33-EC21-4729-9338-BEE45930077D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scradic", "Scradic\Scradic.csproj", "{5713CC33-EC21-4729-9338-BEE45930077D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scradic.Core", "Scradic.Core\Scradic.Core.csproj", "{4281FF0F-B56B-48E2-848E-C3DCBD9681C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scradic.Core", "Scradic.Core\Scradic.Core.csproj", "{4281FF0F-B56B-48E2-848E-C3DCBD9681C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scradic.Infrastructure", "Scradic.Infrastructure\Scradic.Infrastructure.csproj", "{FA5136F1-E0A3-4950-B4AD-FF8764BB3D81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scradic.Infrastructure", "Scradic.Infrastructure\Scradic.Infrastructure.csproj", "{FA5136F1-E0A3-4950-B4AD-FF8764BB3D81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scradic.Services", "Scradic.Services\Scradic.Services.csproj", "{B595DC86-3C2E-48F6-9EFA-ABE0AE3593A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scradic.Services", "Scradic.Services\Scradic.Services.csproj", "{B595DC86-3C2E-48F6-9EFA-ABE0AE3593A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scradic.Utils", "Scradic.Utils\Scradic.Utils.csproj", "{A65AD2C9-EE07-4C11-AC40-05879A8DD603}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B595DC86-3C2E-48F6-9EFA-ABE0AE3593A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B595DC86-3C2E-48F6-9EFA-ABE0AE3593A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B595DC86-3C2E-48F6-9EFA-ABE0AE3593A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A65AD2C9-EE07-4C11-AC40-05879A8DD603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65AD2C9-EE07-4C11-AC40-05879A8DD603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65AD2C9-EE07-4C11-AC40-05879A8DD603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65AD2C9-EE07-4C11-AC40-05879A8DD603}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

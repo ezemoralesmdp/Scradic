@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Scradic.Core.Resources {
+namespace Scradic.Utils.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Scradic.Core.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scradic.Core.Resources.Entities", typeof(Entities).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scradic.Utils.Resources.Entities", typeof(Entities).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
