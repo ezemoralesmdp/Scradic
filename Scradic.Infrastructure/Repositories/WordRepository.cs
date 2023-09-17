@@ -49,9 +49,9 @@ namespace Scradic.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Word>> GetAllSavedWords()
+        public async Task<List<Word>> GetAllSavedWordsOrderByDescendingAsync()
         {
-            return await _entity.Include(w => w.Definitions).Include(w => w.Examples).AsQueryable().AsNoTracking().ToListAsync();
+            return await _entity.Include(w => w.Definitions).Include(w => w.Examples).AsQueryable().AsNoTracking().OrderByDescending(w => w.Id).ToListAsync();
         }
 
         public async Task<List<Word>> GetTop(int amount)

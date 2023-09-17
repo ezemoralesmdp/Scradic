@@ -15,5 +15,8 @@ bld/
 [Bb]in/
 [Oo]bj/
 
+# Migrations
+[Mm]igrations/
+
 # Visual Studio 2022 cache/options directory
 .vs/

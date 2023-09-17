@@ -9,7 +9,7 @@ namespace Scradic.Core.Interfaces
         Task<Word> GetWordByTitleAsync(string wordTitle);
         Task SaveWordAsync(Word word);
         Task UpdateWordAsync(Word word);
-        Task<List<Word>> GetAllSavedWords();
+        Task<List<Word>> GetAllSavedWordsOrderByDescendingAsync();
         Task<List<Word>> GetTop(int amount);
         Task<List<Word>> GetAllToPdfAsync();
     }

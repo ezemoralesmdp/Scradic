@@ -198,6 +198,9 @@ namespace Scradic
                 if (inputFormatted == "!seepdf")
                     await _service.SeePDFList();
 
+                if (inputFormatted == "!words")
+                    await _service.GetAllSavedWordsAsync();
+
             } while(inputFormatted != "!exit");
         }
     }

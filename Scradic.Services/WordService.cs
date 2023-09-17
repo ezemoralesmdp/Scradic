@@ -335,5 +335,32 @@ namespace Scradic.Services
             else
                 ErrorMessage.PdfFolderDoesNotExist();
         }
+
+        public async Task GetAllSavedWordsAsync()
+        {
+            var words = await _repository.GetAllSavedWordsOrderByDescendingAsync();
+
+            if (words.Count > 0)
+            {
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("[Words]");
+                Console.ResetColor();
+
+                foreach (var word in words)
+                {
+                    Console.Write($"ID: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.Write(word.Id);
+                    Console.ResetColor();
+                    Console.Write(" | " + word.Title + " | INSERT DATE: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(word.InsertDate.ToString("dd/MM/yyy HH:mm:ss"));
+                    Console.ResetColor();
+                }
+            }
+            else
+                ErrorMessage.NoWordsAvailable();
+        }
     }
 }
