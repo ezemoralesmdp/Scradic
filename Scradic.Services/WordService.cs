@@ -24,6 +24,11 @@ namespace Scradic.Services
             _repository = wordRepository;
         }
 
+        public void ClearConsole()
+        {
+            Console.Clear();
+        }
+
         public void ShowWord(Word word)
         {
             Console.WriteLine();

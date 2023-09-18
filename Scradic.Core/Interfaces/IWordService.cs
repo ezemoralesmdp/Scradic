@@ -4,6 +4,7 @@ namespace Scradic.Core.Interfaces
 {
     public interface IWordService
     {
+        void ClearConsole();
         void ShowWord(Word word);
         Task<Word> IncrementHints(Word word);
         bool CheckWordExistsAsync(string wordTitle);

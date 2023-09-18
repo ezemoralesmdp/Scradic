@@ -192,7 +192,10 @@ namespace Scradic
                     }
                 }
 
-                if(inputFormatted == "!pdf")
+                if (inputFormatted == "!clear")
+                    _service.ClearConsole();
+
+                if (inputFormatted == "!pdf")
                     await _service.CreatePDF();
 
                 if (inputFormatted == "!seepdf")
