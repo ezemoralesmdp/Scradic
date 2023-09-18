@@ -16,7 +16,6 @@ namespace Scradic
         private static readonly HashSet<string> keyWords = new HashSet<string> 
         {   
             "!exit",
-            "!words",
             "!pdf",
             "!help",
             "!remove",
@@ -29,6 +28,7 @@ namespace Scradic
         private readonly IMemoryCache _cache;
         private readonly IWordService _service;
         private bool goSearchCache;
+        private string numberPart = "";
 
         public Start(IMemoryCache memoryCache, IWordService wordService)
         {
@@ -59,11 +59,44 @@ namespace Scradic
                 {
                     if(inputFormatted.StartsWith("!top"))
                     {
-                        var numberPart = inputFormatted.Substring(4);
-                        if (int.TryParse(numberPart, out int number))
-                            await _service.ShowTop(number);
+                        numberPart = inputFormatted.Substring(4);
+                        if (int.TryParse(numberPart, out int amount))
+                            await _service.ShowTop(amount);
                         else
                             ErrorMessage.Syntax();
+                    }
+                    else if (inputFormatted.StartsWith("!words"))
+                    {
+                        string numberPart = inputFormatted.Substring(6);
+                        bool exitIf = false;
+
+                        if (string.IsNullOrWhiteSpace(numberPart))
+                        {
+                            ErrorMessage.SyntaxSpecifyNumericValue();
+                            exitIf = true;
+                        }
+
+                        if(!exitIf)
+                        {
+                            string[] numbers = numberPart.Split('-');
+
+                            if (numbers.Length == 1) // Case: !words30
+                            {
+                                if (int.TryParse(numbers[0], out int start))
+                                    await _service.GetAllSavedWordsInRangeAsync(start, null);
+                                else
+                                    ErrorMessage.SyntaxSpecifyNumericValue();
+                            }
+                            else if (numbers.Length == 2) // Case: !words30-50
+                            {
+                                if (int.TryParse(numbers[0], out int start) && int.TryParse(numbers[1], out int end))
+                                    await _service.GetAllSavedWordsInRangeAsync(start, end);
+                                else
+                                    ErrorMessage.SyntaxSpecifyNumericValue();
+                            }
+                            else
+                                ErrorMessage.SyntaxSpecifyNumericValue();
+                        }
                     }
                     else
                     {
@@ -200,14 +233,14 @@ namespace Scradic
                 if (inputFormatted == "!clear")
                     _service.ClearConsole();
 
+                if (inputFormatted == "!allwords")
+                    await _service.GetAllSavedWordsAsync();
+
                 if (inputFormatted == "!pdf")
                     await _service.CreatePDF();
 
                 if (inputFormatted == "!seepdf")
                     await _service.SeePDFList();
-
-                if (inputFormatted == "!words")
-                    await _service.GetAllSavedWordsAsync();
 
             } while(inputFormatted != "!exit");
 

@@ -88,6 +88,15 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No words available. The list is empty or the specified range is invalid..
+        /// </summary>
+        public static string NoWordsAvailableOrInvalidRange {
+            get {
+                return ResourceManager.GetString("NoWordsAvailableOrInvalidRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You must insert only numeric characters..
         /// </summary>
         public static string OnlyNumericCharacters {
@@ -156,6 +165,15 @@ namespace Scradic.Utils.Resources {
         public static string SyntaxError {
             get {
                 return ResourceManager.GetString("SyntaxError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must specify a numeric value or range (for example: !words15 or !words5-10).
+        /// </summary>
+        public static string SyntaxSpecifyNumericValue {
+            get {
+                return ResourceManager.GetString("SyntaxSpecifyNumericValue", resourceCulture);
             }
         }
         

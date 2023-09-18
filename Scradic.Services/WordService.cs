@@ -341,31 +341,44 @@ namespace Scradic.Services
                 ErrorMessage.PdfFolderDoesNotExist();
         }
 
-        public async Task GetAllSavedWordsAsync()
+        public async Task GetAllSavedWordsInRangeAsync(int start, int? end)
         {
-            var words = await _repository.GetAllSavedWordsOrderByDescendingAsync();
+            var words = await _repository.GetAllSavedWordsInRangeAsync(start, end);
 
             if (words.Count > 0)
-            {
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine("[Words]");
-                Console.ResetColor();
-
-                foreach (var word in words)
-                {
-                    Console.Write($"ID: ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Write(word.Id);
-                    Console.ResetColor();
-                    Console.Write(" | " + word.Title + " | INSERT DATE: ");
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(word.InsertDate.ToString("dd/MM/yyy HH:mm:ss"));
-                    Console.ResetColor();
-                }
-            }
+                ShowWordList(words);
             else
-                ErrorMessage.NoWordsAvailable();
+                ErrorMessage.NoWordsAvailableOrInvalidRange();
+        }
+
+        public async Task GetAllSavedWordsAsync()
+        {
+            var words = await _repository.GetAllSavedWordsAsync();
+
+            if (words.Count > 0)
+                ShowWordList(words);
+            else
+                ErrorMessage.NoWordsAvailableOrInvalidRange();
+        }
+
+        private void ShowWordList(List<Word> words)
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("[Words]");
+            Console.ResetColor();
+
+            foreach (var word in words)
+            {
+                Console.Write($"ID: ");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write(word.Id);
+                Console.ResetColor();
+                Console.Write(" | " + word.Title + " | INSERT DATE: ");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine(word.InsertDate.ToString("dd/MM/yyy HH:mm:ss"));
+                Console.ResetColor();
+            }
         }
     }
 }

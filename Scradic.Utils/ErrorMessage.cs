@@ -13,6 +13,24 @@ namespace Scradic.Services.Utils
             Console.ResetColor();
         }
 
+        public static void SyntaxSpecifyNumericValue()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{Globals.Warning} ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(Messages.SyntaxSpecifyNumericValue);
+            Console.ResetColor();
+        }
+
+        public static void NoWordsAvailableOrInvalidRange()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{Globals.Warning} ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(Messages.NoWordsAvailableOrInvalidRange);
+            Console.ResetColor();
+        }
+
         public static void Syntax()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;

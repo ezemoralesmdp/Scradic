@@ -14,6 +14,7 @@ namespace Scradic.Core.Interfaces
         Task ShowTop(int amount);
         Task CreatePDF();
         Task SeePDFList();
+        Task GetAllSavedWordsInRangeAsync(int start, int? end);
         Task GetAllSavedWordsAsync();
     }
 }
