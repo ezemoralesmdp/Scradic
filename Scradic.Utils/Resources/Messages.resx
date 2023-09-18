@@ -120,6 +120,9 @@
   <data name="EnterWordToSearchTranslate_Ask" xml:space="preserve">
     <value>Enter the command or word you want to search/translate:</value>
   </data>
+  <data name="Goodbye" xml:space="preserve">
+    <value>** scradic made by Ezequiel Morales (@els_mrls) **</value>
+  </data>
   <data name="NoWordsAvailable" xml:space="preserve">
     <value>There are no words available. The list is empty.</value>
   </data>
@@ -148,7 +151,7 @@
     <value>Syntax error, please try again.</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome to Dictionary! If you have any question please type !help</value>
+    <value>Welcome to Scradic! If you have any question please type !help</value>
   </data>
   <data name="WordToPdf_Ask_1" xml:space="preserve">
     <value>Do you want to save the word</value>

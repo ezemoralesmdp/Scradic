@@ -210,6 +210,11 @@ namespace Scradic
                     await _service.GetAllSavedWordsAsync();
 
             } while(inputFormatted != "!exit");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine();
+            Console.WriteLine(Messages.Goodbye);
+            Console.ResetColor();
         }
     }
 }

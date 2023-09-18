@@ -70,6 +70,15 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ** scradic made by Ezequiel Morales (@els_mrls) **.
+        /// </summary>
+        public static string Goodbye {
+            get {
+                return ResourceManager.GetString("Goodbye", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no words available. The list is empty..
         /// </summary>
         public static string NoWordsAvailable {
@@ -151,7 +160,7 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Dictionary! If you have any question please type !help.
+        ///   Looks up a localized string similar to Welcome to Scradic! If you have any question please type !help.
         /// </summary>
         public static string Welcome {
             get {
