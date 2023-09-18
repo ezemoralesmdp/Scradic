@@ -5,6 +5,7 @@ using Scradic.Core.Interfaces;
 using Scradic.Interfaces;
 using Scradic.Services.Utils;
 using Scradic.Utils;
+using Scradic.Utils.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -45,6 +46,10 @@ namespace Scradic
 
         public async Task StartScradic() 
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(Messages.Welcome);
+            Console.ResetColor();
+
             do
             {
                 if (Ask.EnterWordToSearchTranslate(out inputFormatted)) Formatter.SanitizeDataInput(inputFormatted);

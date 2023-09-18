@@ -147,6 +147,9 @@
   <data name="SyntaxError" xml:space="preserve">
     <value>Syntax error, please try again.</value>
   </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to Dictionary! If you have any question please type !help</value>
+  </data>
   <data name="WordToPdf_Ask_1" xml:space="preserve">
     <value>Do you want to save the word</value>
   </data>
