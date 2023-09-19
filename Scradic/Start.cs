@@ -312,6 +312,7 @@ namespace Scradic
                         string pdfPath = "";
                         string pdfFileName = "";
                         long size = 0;
+                        DateTime dateCreated = new DateTime();
 
                         try
                         {
@@ -327,6 +328,7 @@ namespace Scradic
                                 pdfPath = latestFile.FullName;
                                 pdfFileName = latestFile.Name;
                                 size = latestFile.Length;
+                                dateCreated = latestFile.LastWriteTime;
                             }
                             else
                                 Console.WriteLine(Messages.PdfFolderEmpty);
@@ -342,9 +344,10 @@ namespace Scradic
                             Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
                             Body = $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
                                $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
-                               $"<p>{_user.Username}, we send you the latest PDF you have created! </p>" +
-                               $"<p> File name: <span style =\"font-weight: bolder;\">{pdfFileName}</span></p>" +
+                               $"<p>{_user.Username}, we send you the latest PDF you have created!</p>" +
+                               $"<p>File name: <span style =\"font-weight: bolder;\">{pdfFileName}</span></p>" +
                                $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(size)}</span></p>" +
+                               $"<p>File creation date: <span style =\"font-weight: bolder;\">{dateCreated.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
                                $"</div>",
                             PDFPath = pdfPath,
                             PDFFileName = pdfFileName,
