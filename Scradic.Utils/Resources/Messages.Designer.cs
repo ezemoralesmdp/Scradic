@@ -61,6 +61,24 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter your new email:.
+        /// </summary>
+        public static string EnterNewEmail {
+            get {
+                return ResourceManager.GetString("EnterNewEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your new username:.
+        /// </summary>
+        public static string EnterNewUsername {
+            get {
+                return ResourceManager.GetString("EnterNewUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the command or word you want to search/translate:.
         /// </summary>
         public static string EnterWordToSearchTranslate_Ask {
@@ -201,6 +219,24 @@ namespace Scradic.Utils.Resources {
         public static string SyntaxSpecifyNumericValue {
             get {
                 return ResourceManager.GetString("SyntaxSpecifyNumericValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to update your user?.
+        /// </summary>
+        public static string UpdateUser_Ask {
+            get {
+                return ResourceManager.GetString("UpdateUser_Ask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User successfully updated!.
+        /// </summary>
+        public static string UserUpdateSuccessfully {
+            get {
+                return ResourceManager.GetString("UserUpdateSuccessfully", resourceCulture);
             }
         }
         

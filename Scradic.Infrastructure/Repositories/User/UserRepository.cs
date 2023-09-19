@@ -27,5 +27,11 @@ namespace Scradic.Infrastructure.Repositories
             var query = _entity.AsQueryable().AsNoTracking();
             return await query.FirstOrDefaultAsync();
         }
+
+        public async Task UpdateUser(User user)
+        {
+            _entity.Update(user);
+            await _context.SaveChangesAsync();
+        }
     }
 }

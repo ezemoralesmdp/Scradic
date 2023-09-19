@@ -4,6 +4,6 @@ namespace Scradic.Core.Interfaces
 {
     public interface IEmailService
     {
-        void SendEmailAsync(MailRequest mailRequest);
+        void SendEmailWithAttachmentAsync(MailRequest mailRequest);
     }
 }

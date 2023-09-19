@@ -6,5 +6,6 @@ namespace Scradic.Core.Interfaces
     {
         Task RegisterSingleUser(User user);
         Task<User?> GetSingleUser();
+        Task UpdateUser(User user);
     }
 }

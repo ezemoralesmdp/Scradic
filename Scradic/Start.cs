@@ -14,16 +14,17 @@ namespace Scradic
 {
     public class Start : IStart
     {
-        private static readonly HashSet<string> keyWords = new HashSet<string> 
-        {   
+        private static readonly HashSet<string> keyWords = new HashSet<string>
+        {
             "!exit",
+            "!user",
             "!pdf",
             "!help",
             "!remove",
             "!removeall",
             "!clear",
             "!seepdf",
-            "!email"
+            "!pdfemail"
         };
 
         private string? inputFormatted = "";
@@ -34,6 +35,7 @@ namespace Scradic
         private readonly IEmailService _emailService;
         private bool goSearchCache;
         private string numberPart = "";
+        private readonly string folderName = "Dictionary_Words";
 
         public Start(IMemoryCache memoryCache, IUserService userService, IWordService wordService, IEmailService emailService)
         {
@@ -285,6 +287,9 @@ namespace Scradic
                 if (inputFormatted == "!clear")
                     _service.ClearConsole();
 
+                if (inputFormatted == "!user")
+                    await _userService.UpdateUser(_user);
+
                 if (inputFormatted == "!allwords")
                     await _service.GetAllSavedWordsAsync();
 
@@ -294,21 +299,52 @@ namespace Scradic
                 if (inputFormatted == "!seepdf")
                     await _service.SeePDFList();
 
-                if (inputFormatted == "!email")
+                if (inputFormatted == "!pdfemail")
                 {
                     try
                     {
-                        MailRequest mailRequest = new MailRequest();
-                        mailRequest.ToEmail = _user.Email;
-                        mailRequest.Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!";
-                        mailRequest.Body = "<div style=\"background-color: #aaffaa; padding: 20px; text-align: center;\">\r\n" +
-                            "<h1>Scradic</h1>\r\n<p style=\"font-weight: bold;\">These are your most searched words of the week:</p>\r\n" +
-                            "<ul>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">1. Floofalicious</span>\r\n" +
-                            "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">2. Gobbledygook</span>\r\n" +
-                            "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">3. Zippity-zappity</span>\r\n" +
-                            "</li>\r\n</ul>\r\n<p style=\"font-style: italic;\">These words received a record number of hits!</p>\r\n</div>";
+                        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                        string folderPath = Path.Combine(documentsPath, folderName);
+                        string latestFileName = "";
+                        string pdfFileName = "";
 
-                        _emailService.SendEmailAsync(mailRequest);
+                        try
+                        {
+                            var files = Directory.GetFiles(folderPath);
+
+                            if (files.Length > 0)
+                            {
+                                var latestFile = files
+                                    .Select(filePath => new FileInfo(filePath))
+                                    .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
+                                    .First();
+
+                                latestFileName = latestFile.FullName;
+                                pdfFileName = latestFile.Name;
+                            }
+                            else
+                                Console.WriteLine(Messages.PdfFolderEmpty);
+                        }
+                        catch (DirectoryNotFoundException)
+                        {
+                            Console.WriteLine(Messages.PdfFolderDoesNotExist);
+                        }
+
+                        MailRequest mailRequest = new MailRequest()
+                        {
+                            ToEmail = _user.Email,
+                            Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
+                            Body = "<div style=\"background-color: #aaffaa; padding: 20px; text-align: center;\">\r\n" +
+                                "<h1>Scradic</h1>\r\n<p style=\"font-weight: bold;\">These are your most searched words of the week:</p>\r\n" +
+                                "<ul>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">1. Floofalicious</span>\r\n" +
+                                "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">2. Gobbledygook</span>\r\n" +
+                                "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">3. Zippity-zappity</span>\r\n" +
+                                "</li>\r\n</ul>\r\n<p style=\"font-style: italic;\">These words received a record number of hits!</p>\r\n</div>",
+                            PDFPath = latestFileName,
+                            PDFFileName = pdfFileName
+                        };
+
+                        _emailService.SendEmailWithAttachmentAsync(mailRequest);
 
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.Write($"{Globals.Warning} ");

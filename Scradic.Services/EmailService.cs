@@ -17,16 +17,31 @@ namespace Scradic.Services
             _config = config;
         }
 
-        public void SendEmailAsync(MailRequest mailRequest)
+        public void SendEmailWithAttachmentAsync(MailRequest mailRequest)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config.GetSection("Email:Username").Value));
             email.To.Add(MailboxAddress.Parse(mailRequest.ToEmail));
             email.Subject = mailRequest.Subject;
+
             email.Body = new TextPart(TextFormat.Html)
             {
-                Text = mailRequest.Body
+                Text = mailRequest.Body,
             };
+
+            var attachment = new MimePart()
+            {
+                Content = new MimeContent(File.OpenRead(mailRequest.PDFPath), ContentEncoding.Default),
+                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                ContentTransferEncoding = ContentEncoding.Base64,
+                FileName = mailRequest.PDFFileName
+            };
+
+            var multipart = new Multipart("mixed");
+            multipart.Add(email.Body);
+            multipart.Add(attachment);
+
+            email.Body = multipart;
 
             using var smtp = new SmtpClient();
             smtp.Connect(
