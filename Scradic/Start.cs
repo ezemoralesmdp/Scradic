@@ -1,4 +1,6 @@
 ﻿using HtmlAgilityPack;
+using iText.Layout.Element;
+using iText.Layout;
 using Microsoft.Extensions.Caching.Memory;
 using Scradic.Core.Entities;
 using Scradic.Core.Interfaces;
@@ -9,6 +11,8 @@ using Scradic.Utils;
 using Scradic.Utils.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Reflection;
+using iText.Commons.Datastructures;
 
 namespace Scradic
 {
@@ -35,7 +39,7 @@ namespace Scradic
         private readonly IEmailService _emailService;
         private bool goSearchCache;
         private string numberPart = "";
-        private readonly string folderName = "Dictionary_Words";
+        private readonly string folderName = "Scradic_Words";
 
         public Start(IMemoryCache memoryCache, IUserService userService, IWordService wordService, IEmailService emailService)
         {
@@ -305,8 +309,9 @@ namespace Scradic
                     {
                         string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                         string folderPath = Path.Combine(documentsPath, folderName);
-                        string latestFileName = "";
+                        string pdfPath = "";
                         string pdfFileName = "";
+                        long size = 0;
 
                         try
                         {
@@ -319,8 +324,9 @@ namespace Scradic
                                     .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
                                     .First();
 
-                                latestFileName = latestFile.FullName;
+                                pdfPath = latestFile.FullName;
                                 pdfFileName = latestFile.Name;
+                                size = latestFile.Length;
                             }
                             else
                                 Console.WriteLine(Messages.PdfFolderEmpty);
@@ -334,14 +340,15 @@ namespace Scradic
                         {
                             ToEmail = _user.Email,
                             Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
-                            Body = "<div style=\"background-color: #aaffaa; padding: 20px; text-align: center;\">\r\n" +
-                                "<h1>Scradic</h1>\r\n<p style=\"font-weight: bold;\">These are your most searched words of the week:</p>\r\n" +
-                                "<ul>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">1. Floofalicious</span>\r\n" +
-                                "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">2. Gobbledygook</span>\r\n" +
-                                "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">3. Zippity-zappity</span>\r\n" +
-                                "</li>\r\n</ul>\r\n<p style=\"font-style: italic;\">These words received a record number of hits!</p>\r\n</div>",
-                            PDFPath = latestFileName,
-                            PDFFileName = pdfFileName
+                            Body = $"<div style=\"background-color: #aaffaa; padding: 20px; text-align: center;\">" +
+                               $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
+                               $"<p>{_user.Username}, we send you the latest PDF you have created! </p>" +
+                               $"<p> File name: <span style =\"font-weight: bolder;\">{pdfFileName}</span></p>" +
+                               $"<p>Size: <span style =\"font-weight: bolder;\">{size}</span></p>" +
+                               $"</div>",
+                            PDFPath = pdfPath,
+                            PDFFileName = pdfFileName,
+                            LogoBase64 = Images64.Logo
                         };
 
                         _emailService.SendEmailWithAttachmentAsync(mailRequest);

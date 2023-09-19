@@ -13,5 +13,6 @@ namespace Scradic.Services.EmailHelper
         public string Body { get; set; } = string.Empty;
         public string PDFPath { get; set; } = string.Empty;
         public string PDFFileName { get; set; } = string.Empty;
+        public string LogoBase64 { get; set; } = string.Empty;
     }
 }

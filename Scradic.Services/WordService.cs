@@ -17,7 +17,7 @@ namespace Scradic.Services
     public class WordService : IWordService
     {
         private readonly IWordRepository _repository;
-        private readonly string folderName = "Dictionary_Words";
+        private readonly string folderName = "Scradic_Words";
 
         public WordService(IWordRepository wordRepository)
         {

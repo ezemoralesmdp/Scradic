@@ -29,7 +29,7 @@ namespace Scradic.Services
                 Text = mailRequest.Body,
             };
 
-            var attachment = new MimePart()
+            var pdf = new MimePart()
             {
                 Content = new MimeContent(File.OpenRead(mailRequest.PDFPath), ContentEncoding.Default),
                 ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
@@ -37,9 +37,22 @@ namespace Scradic.Services
                 FileName = mailRequest.PDFFileName
             };
 
+            // Cadena Base64 a bytes
+            byte[] base64Bytes = Convert.FromBase64String(mailRequest.LogoBase64);
+
+            var imagePart = new MimePart()
+            {
+                Content = new MimeContent(new MemoryStream(base64Bytes), ContentEncoding.Default),
+                ContentId = "<logo>", // Identificador en el HTML
+                ContentDisposition = new ContentDisposition(ContentDisposition.Inline),
+                ContentTransferEncoding = ContentEncoding.Base64
+            };
+            imagePart.Headers.Add("Content-Location", "cid:logo"); // Encabezado Content-Location
+
             var multipart = new Multipart("mixed");
             multipart.Add(email.Body);
-            multipart.Add(attachment);
+            multipart.Add(pdf);
+            multipart.Add(imagePart);
 
             email.Body = multipart;
 
