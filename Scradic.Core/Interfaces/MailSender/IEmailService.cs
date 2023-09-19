@@ -1,6 +1,6 @@
 ﻿using Scradic.Services.EmailHelper;
 
-namespace Scradic.Core.Interfaces.MailSender
+namespace Scradic.Core.Interfaces
 {
     public interface IEmailService
     {

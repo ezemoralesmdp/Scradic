@@ -79,6 +79,15 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to I see that it is your first time in Scradic, please complete the following information to continue:.
+        /// </summary>
+        public static string FirstTime {
+            get {
+                return ResourceManager.GetString("FirstTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ** scradic made by Ezequiel Morales (@els_mrls) **.
         /// </summary>
         public static string Goodbye {

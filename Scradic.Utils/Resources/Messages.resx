@@ -123,6 +123,9 @@
   <data name="FailedSendEmail" xml:space="preserve">
     <value>Failed to send email</value>
   </data>
+  <data name="FirstTime" xml:space="preserve">
+    <value>I see that it is your first time in Scradic, please complete the following information to continue:</value>
+  </data>
   <data name="Goodbye" xml:space="preserve">
     <value>** scradic made by Ezequiel Morales (@els_mrls) **</value>
   </data>

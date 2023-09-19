@@ -3,7 +3,7 @@ using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
-using Scradic.Core.Interfaces.MailSender;
+using Scradic.Core.Interfaces;
 using Scradic.Services.EmailHelper;
 
 namespace Scradic.Services

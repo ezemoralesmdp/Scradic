@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Caching.Memory;
 using Scradic.Core.Entities;
 using Scradic.Core.Interfaces;
-using Scradic.Core.Interfaces.MailSender;
 using Scradic.Interfaces;
 using Scradic.Services.EmailHelper;
 using Scradic.Services.Utils;
@@ -29,16 +28,25 @@ namespace Scradic
 
         private string? inputFormatted = "";
         private readonly IMemoryCache _cache;
+        private readonly IUserService _userService;
+        private User? _user;
         private readonly IWordService _service;
         private readonly IEmailService _emailService;
         private bool goSearchCache;
         private string numberPart = "";
 
-        public Start(IMemoryCache memoryCache, IWordService wordService, IEmailService emailService)
+        public Start(IMemoryCache memoryCache, IUserService userService, IWordService wordService, IEmailService emailService)
         {
             _service = wordService;
             _cache = memoryCache;
             _emailService = emailService;
+            _userService = userService;
+        }
+
+        private async Task GetSingleUser()
+        {
+            var user = await _userService.GetSingleUser();
+            _cache.Set(nameof(User), user);
         }
 
         private async Task ShowIncrementAndCachingWord(Word word)
@@ -51,9 +59,48 @@ namespace Scradic
 
         public async Task StartScradic() 
         {
+            await GetSingleUser();
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(Messages.Welcome);
             Console.ResetColor();
+
+            if(!_cache.TryGetValue(nameof(User), out _user))
+            {
+                User user = new();
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{Globals.Warning} ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Messages.FirstTime);
+
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Enter your username: ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    user.Username = Console.ReadLine();
+
+                } while (string.IsNullOrEmpty(user.Username));
+
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Enter your email: ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    user.Email = Console.ReadLine();
+
+                } while (string.IsNullOrEmpty(user.Email));
+
+                if (!string.IsNullOrEmpty(user.Username) && !string.IsNullOrEmpty(user.Email))
+                {
+                    await _userService.RegisterSingleUser(user);
+                    Console.WriteLine($"User \"{user.Username}\" created successfully!");
+                }
+
+                Console.ResetColor();
+            }
 
             do
             {
@@ -252,8 +299,8 @@ namespace Scradic
                     try
                     {
                         MailRequest mailRequest = new MailRequest();
-                        mailRequest.ToEmail = "ezemoralesmdp@gmail.com";
-                        mailRequest.Subject = "Incredible! These are your 10 most searched words, check them out!";
+                        mailRequest.ToEmail = _user.Email;
+                        mailRequest.Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!";
                         mailRequest.Body = "<div style=\"background-color: #aaffaa; padding: 20px; text-align: center;\">\r\n" +
                             "<h1>Scradic</h1>\r\n<p style=\"font-weight: bold;\">These are your most searched words of the week:</p>\r\n" +
                             "<ul>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">1. Floofalicious</span>\r\n" +

@@ -2,15 +2,13 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Scradic.Core.Interfaces;
-using Scradic.Core.Interfaces.MailSender;
 using Scradic.Infrastructure.Data;
 using Scradic.Infrastructure.Repositories;
 using Scradic.Interfaces;
 using Scradic.Services;
-using Scradic.Services.EmailHelper;
 
 namespace Scradic
-{ 
+{
     class Program
     {
         public static void Main(string[] args)
@@ -22,10 +20,12 @@ namespace Scradic
 
                 //Repositories
                 services.AddSingleton<IWordRepository, WordRepository>();
+                services.AddSingleton<IUserRepository, UserRepository>();
 
                 //Services
                 services.AddSingleton<IWordService, WordService>();
                 services.AddSingleton<IStart, Start>();
+                services.AddSingleton<IUserService, UserService>();
 
                 //Email Sender
                 IConfiguration configuration = new ConfigurationBuilder()
