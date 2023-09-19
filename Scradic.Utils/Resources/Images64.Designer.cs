@@ -61,7 +61,7 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAIAAABEtEjdAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAP+lSURBVHhe7P0HuCTHeZgL6/mvSIQFdhEIgGC2oq0ry7b+69/29f/f+9sSgV1sRhKpaInYfBYAAdJMwO5Ju6AkSrIl2ZZtUSSwOQIgARDYkzfvyflM7jQzJ+fdRSTnfl993d/UfN0TTsTS0vO8zzw91VXV1aHeqa6prv4Zq+k4YTYeA4yGo0Ci/ggt6EAg0niUMZqO6UBIvOEIEKs/TAuAm8oD89FyCCA3PqOXxKrPYjQcBhL1hwBejtcdzM/hUgjcul7OnH3ng4NgSfxwAWR4/UuxuheBaO33ozUvAbHaA0C0DonVH/RxOFp3iIBl+hqpPcghfOQB+EpboSPDBwq3mz0gB6EMWfIcAQHsMkFboWLwApQHFvSSEPr5peRq2S2SKJUb4hUs0XAA [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAP+lSURBVHhe7P3Z02xJcieGee6Z33q36q5GAwRAQhzYgDSNKKOJJiNNNuJ/QFIy6YWjJ72Jo3e9zJue9SITJZppRpwFwAwWYm+g0egGGui9qxtdXdVdXV37cm/dutu35p76/TyOZ3rGd9ZcvuXW/d0b3zkZi4eHh0d4eJyt9u7XfnsmCWazcOqPtVpNz2NYHqkvp6flZ94smrV57QswfZZe7UVMUwg4xPzUo+zT2lSPxp/l9zzno54cyyNNRvN6o6QLedHeZb4C/1nwedPqnclknkePs9CemJ+0sgH11DoYx2C/eYxpMB2l9dyneXr+XJH01xyzZnKSx+MyfL4p6rc6PL88Z6jX65l0Nd7pny8b94vVYZjnhfwNjLN6ed5oNGQ6XdZPgmnki5hN [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Logo {
             get {

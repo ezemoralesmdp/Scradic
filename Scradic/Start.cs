@@ -340,11 +340,11 @@ namespace Scradic
                         {
                             ToEmail = _user.Email,
                             Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
-                            Body = $"<div style=\"background-color: #aaffaa; padding: 20px; text-align: center;\">" +
+                            Body = $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
                                $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
                                $"<p>{_user.Username}, we send you the latest PDF you have created! </p>" +
                                $"<p> File name: <span style =\"font-weight: bolder;\">{pdfFileName}</span></p>" +
-                               $"<p>Size: <span style =\"font-weight: bolder;\">{size}</span></p>" +
+                               $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(size)}</span></p>" +
                                $"</div>",
                             PDFPath = pdfPath,
                             PDFFileName = pdfFileName,
