@@ -20,3 +20,6 @@ bld/
 
 # Visual Studio 2022 cache/options directory
 .vs/
+
+# AppSettings
+appsettings.json

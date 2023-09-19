@@ -70,11 +70,29 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to send email.
+        /// </summary>
+        public static string FailedSendEmail {
+            get {
+                return ResourceManager.GetString("FailedSendEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ** scradic made by Ezequiel Morales (@els_mrls) **.
         /// </summary>
         public static string Goodbye {
             get {
                 return ResourceManager.GetString("Goodbye", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email successfully sent to email address.
+        /// </summary>
+        public static string MailSentSuccessfully {
+            get {
+                return ResourceManager.GetString("MailSentSuccessfully", resourceCulture);
             }
         }
         

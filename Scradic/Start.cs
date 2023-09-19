@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Caching.Memory;
 using Scradic.Core.Entities;
 using Scradic.Core.Interfaces;
+using Scradic.Core.Interfaces.MailSender;
 using Scradic.Interfaces;
+using Scradic.Services.EmailHelper;
 using Scradic.Services.Utils;
 using Scradic.Utils;
 using Scradic.Utils.Resources;
@@ -22,18 +24,21 @@ namespace Scradic
             "!removeall",
             "!clear",
             "!seepdf",
+            "!email"
         };
 
         private string? inputFormatted = "";
         private readonly IMemoryCache _cache;
         private readonly IWordService _service;
+        private readonly IEmailService _emailService;
         private bool goSearchCache;
         private string numberPart = "";
 
-        public Start(IMemoryCache memoryCache, IWordService wordService)
+        public Start(IMemoryCache memoryCache, IWordService wordService, IEmailService emailService)
         {
             _service = wordService;
             _cache = memoryCache;
+            _emailService = emailService;
         }
 
         private async Task ShowIncrementAndCachingWord(Word word)
@@ -241,6 +246,36 @@ namespace Scradic
 
                 if (inputFormatted == "!seepdf")
                     await _service.SeePDFList();
+
+                if (inputFormatted == "!email")
+                {
+                    try
+                    {
+                        MailRequest mailRequest = new MailRequest();
+                        mailRequest.ToEmail = "ezemoralesmdp@gmail.com";
+                        mailRequest.Subject = "Incredible! These are your 10 most searched words, check them out!";
+                        mailRequest.Body = "<div style=\"background-color: #aaffaa; padding: 20px; text-align: center;\">\r\n" +
+                            "<h1>Scradic</h1>\r\n<p style=\"font-weight: bold;\">These are your most searched words of the week:</p>\r\n" +
+                            "<ul>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">1. Floofalicious</span>\r\n" +
+                            "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">2. Gobbledygook</span>\r\n" +
+                            "</li>\r\n<li style=\"list-style: none; margin: 10px 0;\">\r\n<span style=\"font-weight: bold;\">3. Zippity-zappity</span>\r\n" +
+                            "</li>\r\n</ul>\r\n<p style=\"font-style: italic;\">These words received a record number of hits!</p>\r\n</div>";
+
+                        _emailService.SendEmailAsync(mailRequest);
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write($"{Globals.Warning} ");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write($"{Messages.MailSentSuccessfully}: ");
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine($"{mailRequest.ToEmail}");
+                        Console.ResetColor();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"{Messages.FailedSendEmail}: {ex.Message}");
+                    }
+                }
 
             } while(inputFormatted != "!exit");
 
