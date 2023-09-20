@@ -321,33 +321,39 @@ namespace Scradic
 
                                 var pdfInfo = await _PDFService.GetLatestPDFInfoCreatedAsync();
 
-                                EmailRequest mailRequest = new EmailRequest()
+                                if (pdfInfo != null)
                                 {
-                                    ToEmail = _user.Email,
-                                    Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
-                                    Body = 
-                                        $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
-                                            $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
-                                            $"<p>{_user.Username}, we send you the latest PDF you have created!</p>" +
-                                            $"<p>File name: <span style =\"font-weight: bolder;\">{pdfInfo.Name}</span></p>" +
-                                            $"<p>Total words: <span style =\"font-weight: bolder;\">{pdfInfo.TotalWords}</span></p>" +
-                                            $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(pdfInfo.Size)}</span></p>" +
-                                            $"<p>File creation date: <span style =\"font-weight: bolder;\">{pdfInfo.FileCreationDate.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
-                                        $"</div>",
-                                    PDFPath = Path.Combine(pdfInfo.FolderPath, pdfInfo.Name),
-                                    PDFFileName = pdfInfo.Name,
-                                    LogoBase64 = Images64.Logo
-                                };
+                                    EmailRequest mailRequest = new EmailRequest()
+                                    {
+                                        ToEmail = _user.Email,
+                                        Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
+                                        Body =
+                                            $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
+                                                $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
+                                                $"<p>{_user.Username}, we send you the latest PDF you have created!</p>" +
+                                                $"<p>File name: <span style =\"font-weight: bolder;\">{pdfInfo.Name}</span></p>" +
+                                                $"<p>Total words: <span style =\"font-weight: bolder;\">{pdfInfo.TotalWords}</span></p>" +
+                                                $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(pdfInfo.Size)}</span></p>" +
+                                                $"<p>File creation date: <span style =\"font-weight: bolder;\">{pdfInfo.FileCreationDate.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
+                                            $"</div>",
+                                        PDFPath = Path.Combine(pdfInfo.FolderPath, pdfInfo.Name),
+                                        PDFFileName = pdfInfo.Name,
+                                        LogoBase64 = Images64.Logo
+                                    };
 
-                                _emailService.SendEmailWithAttachmentAsync(mailRequest);
+                                    _emailService.SendEmailWithAttachmentAsync(mailRequest);
 
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.Write($"{Globals.Warning} ");
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.Write($"{Messages.MailSentSuccessfully}: ");
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine($"{mailRequest.ToEmail}");
-                                Console.ResetColor();
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.Write($"{Globals.Warning} ");
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.Write($"{Messages.MailSentSuccessfully}: ");
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine($"{mailRequest.ToEmail}");
+                                    Console.ResetColor();
+
+                                }
+                                else
+                                    ErrorMessage.PdfFolderEmpty();
 
                                 #endregion Email preparation
                             }
