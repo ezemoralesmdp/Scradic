@@ -22,6 +22,7 @@ namespace Scradic
                 //Repositories
                 services.AddSingleton<IWordRepository, WordRepository>();
                 services.AddSingleton<IUserRepository, UserRepository>();
+                services.AddSingleton<IPDFRepository, PDFRepository>();
 
                 //Services
                 services.AddSingleton<IStart, Start>();

@@ -5,6 +5,7 @@ using iText.Kernel.Pdf.Canvas.Draw;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using Scradic.Core.Entities;
 using Scradic.Core.Interfaces.Repositories;
 using Scradic.Core.Interfaces.Services;
 using Scradic.Services.Utils;
@@ -17,10 +18,12 @@ namespace Scradic.Services
     public class PDFService : IPDFService
     {
         private readonly IWordRepository _repository;
+        private readonly IPDFRepository _PDFRepository;
 
-        public PDFService(IWordRepository wordRepository)
+        public PDFService(IWordRepository wordRepository, IPDFRepository pdfRepository)
         {
             _repository = wordRepository;
+            _PDFRepository = pdfRepository;
         }
 
         private string GetNameFile()
@@ -36,6 +39,7 @@ namespace Scradic.Services
             {
                 try
                 {
+                    var pdfInfo = new PDFInfo();
                     string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                     string folderPath = Path.Combine(documentsPath, Globals.ScradicWordsFolderName);
                     LineSeparator line = new LineSeparator(new SolidLine());
@@ -45,7 +49,8 @@ namespace Scradic.Services
                     if (!Directory.Exists(folderPath))
                         Directory.CreateDirectory(folderPath);
 
-                    string pdfFilePath = Path.Combine(folderPath, $"{GetNameFile()}.pdf");
+                    var pdfNameFile = $"{GetNameFile()}.pdf";
+                    string pdfFilePath = Path.Combine(folderPath, pdfNameFile);
 
                     //Initialize PDF writer
                     PdfWriter writer = new PdfWriter(pdfFilePath);
@@ -117,6 +122,28 @@ namespace Scradic.Services
 
                     //Close document
                     document.Close();
+
+                    #region Save PDFInfo
+                    
+                    var files = Directory.GetFiles(folderPath);
+
+                    if (files.Length > 0)
+                    {
+                        var latestFile = files
+                            .Select(filePath => new FileInfo(filePath))
+                            .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
+                            .First();
+
+                        pdfInfo.Name = pdfNameFile;
+                        pdfInfo.FolderPath = folderPath;
+                        pdfInfo.Size = latestFile.Length;
+                        pdfInfo.TotalWords = words.Count;
+                        pdfInfo.FileCreationDate = latestFile.LastWriteTime;
+
+                        await _PDFRepository.SaveLatestPDFInfoAsync(pdfInfo);
+                    }
+                    
+                    #endregion Save PDFInfo
 
                     do
                     {
@@ -220,6 +247,11 @@ namespace Scradic.Services
             }
             else
                 ErrorMessage.PdfFolderDoesNotExist();
+        }
+
+        public async Task<PDFInfo> GetLatestPDFInfoCreatedAsync()
+        {
+            return await _PDFRepository.GetLatestPDFInfoCreatedAsync();
         }
     }
 }

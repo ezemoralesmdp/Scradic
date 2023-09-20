@@ -318,15 +318,7 @@ namespace Scradic
                             {
                                 #region Email preparation
 
-                                var latestFile = files
-                                    .Select(filePath => new FileInfo(filePath))
-                                    .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
-                                    .First();
-
-                                pdfPath = latestFile.FullName;
-                                pdfFileName = latestFile.Name;
-                                size = latestFile.Length;
-                                dateCreated = latestFile.LastWriteTime;
+                                var pdfInfo = await _PDFService.GetLatestPDFInfoCreatedAsync();
 
                                 EmailRequest mailRequest = new EmailRequest()
                                 {
@@ -336,12 +328,13 @@ namespace Scradic
                                         $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
                                             $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
                                             $"<p>{_user.Username}, we send you the latest PDF you have created!</p>" +
-                                            $"<p>File name: <span style =\"font-weight: bolder;\">{pdfFileName}</span></p>" +
-                                            $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(size)}</span></p>" +
-                                            $"<p>File creation date: <span style =\"font-weight: bolder;\">{dateCreated.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
+                                            $"<p>File name: <span style =\"font-weight: bolder;\">{pdfInfo.Name}</span></p>" +
+                                            $"<p>Total words: <span style =\"font-weight: bolder;\">{pdfInfo.TotalWords}</span></p>" +
+                                            $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(pdfInfo.Size)}</span></p>" +
+                                            $"<p>File creation date: <span style =\"font-weight: bolder;\">{pdfInfo.FileCreationDate.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
                                         $"</div>",
-                                    PDFPath = pdfPath,
-                                    PDFFileName = pdfFileName,
+                                    PDFPath = Path.Combine(pdfInfo.FolderPath, pdfInfo.Name),
+                                    PDFFileName = pdfInfo.Name,
                                     LogoBase64 = Images64.Logo
                                 };
 
