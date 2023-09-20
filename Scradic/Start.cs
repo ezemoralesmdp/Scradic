@@ -302,7 +302,7 @@ namespace Scradic
                     await _PDFService.CreatePDF();
 
                 if (inputFormatted == "!seepdf")
-                    await _PDFService.SeePDFList();
+                    _PDFService.SeePDFList();
 
                 if (inputFormatted == "!pdfemail")
                 {
@@ -310,10 +310,6 @@ namespace Scradic
                     {
                         string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                         string folderPath = Path.Combine(documentsPath, Globals.ScradicWordsFolderName);
-                        string pdfPath = "";
-                        string pdfFileName = "";
-                        long size = 0;
-                        DateTime dateCreated = new DateTime();
 
                         try
                         {

@@ -5,7 +5,7 @@ namespace Scradic.Core.Interfaces.Services
     public interface IPDFService
     {
         Task CreatePDF();
-        Task SeePDFList();
+        void SeePDFList();
         Task<PDFInfo> GetLatestPDFInfoCreatedAsync();
     }
 }

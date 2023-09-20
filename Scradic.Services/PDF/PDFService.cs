@@ -175,7 +175,7 @@ namespace Scradic.Services
                 ErrorMessage.NoWordsAvailable();
         }
 
-        public async Task SeePDFList()
+        public void SeePDFList()
         {
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string folderPath = Path.Combine(documentsPath, Globals.ScradicWordsFolderName);
@@ -231,7 +231,7 @@ namespace Scradic.Services
                                 Console.WriteLine();
                             }
                         }
-                        catch (FormatException e)
+                        catch (FormatException)
                         {
                             ErrorMessage.OnlyNumericCharacters();
                         }
