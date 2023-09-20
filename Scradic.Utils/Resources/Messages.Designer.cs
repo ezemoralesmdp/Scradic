@@ -250,6 +250,15 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The ID entered does not correspond to an existing word..
+        /// </summary>
+        public static string WordNonExistingById {
+            get {
+                return ResourceManager.GetString("WordNonExistingById", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save the word.
         /// </summary>
         public static string WordToPdf_Ask_1 {

@@ -180,6 +180,9 @@
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to Scradic! If you have any question please type !help</value>
   </data>
+  <data name="WordNonExistingById" xml:space="preserve">
+    <value>The ID entered does not correspond to an existing word.</value>
+  </data>
   <data name="WordToPdf_Ask_1" xml:space="preserve">
     <value>Do you want to save the word</value>
   </data>

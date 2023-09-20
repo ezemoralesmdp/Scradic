@@ -75,5 +75,14 @@ namespace Scradic.Services.Utils
             Console.WriteLine(Messages.PdfFolderDoesNotExist);
             Console.ResetColor();
         }
+
+        public static void WordNonExistingById()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{Globals.Warning} ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(Messages.WordNonExistingById);
+            Console.ResetColor();
+        }
     }
 }

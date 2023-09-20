@@ -49,6 +49,18 @@ namespace Scradic.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateWordPdfAsync(int wordId, bool newPdfValue)
+        {
+            var existingWord = await _context.FindAsync<Word>(wordId);
+
+            if (existingWord != null)
+            {
+                existingWord.Pdf = newPdfValue;
+                _context.Entry(existingWord).Property(x => x.Pdf).IsModified = true;
+                await _context.SaveChangesAsync();
+            }
+        }
+
         public async Task<List<Word>> GetAllSavedWordsInRangeAsync(int start, int? end)
         {
             if (!end.HasValue)
@@ -80,6 +92,11 @@ namespace Scradic.Infrastructure.Repositories
         public async Task<List<Word>> GetAllToPdfAsync()
         {
             return await _entity.AsQueryable().AsNoTracking().Include(w => w.Definitions).Include(w => w.Examples).Where(w => w.Pdf == true).ToListAsync();
+        }
+
+        public async Task<Word> GetWordByIdAsync(int wordId)
+        {
+            return await _entity.AsQueryable().AsNoTracking().FirstOrDefaultAsync(w => w.Id == wordId);
         }
     }
 }

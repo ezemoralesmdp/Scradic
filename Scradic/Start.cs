@@ -157,6 +157,14 @@ namespace Scradic
                                 ErrorMessage.SyntaxSpecifyNumericValue();
                         }
                     }
+                    else if(inputFormatted.StartsWith("!addwordpdf"))
+                    {
+                        string numberPart = inputFormatted.Substring(11);
+                        if (int.TryParse(numberPart, out int wordId))
+                            await _PDFService.AddToPdf(wordId);
+                        else
+                            ErrorMessage.Syntax();
+                    }
                     else
                     {
                         goSearchCache = _cache.TryGetValue(inputFormatted, out word);

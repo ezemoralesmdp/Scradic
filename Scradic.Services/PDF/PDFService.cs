@@ -17,12 +17,12 @@ namespace Scradic.Services
 {
     public class PDFService : IPDFService
     {
-        private readonly IWordRepository _repository;
+        private readonly IWordRepository _wordRepository;
         private readonly IPDFRepository _PDFRepository;
 
         public PDFService(IWordRepository wordRepository, IPDFRepository pdfRepository)
         {
-            _repository = wordRepository;
+            _wordRepository = wordRepository;
             _PDFRepository = pdfRepository;
         }
 
@@ -33,7 +33,7 @@ namespace Scradic.Services
 
         public async Task CreatePDF()
         {
-            var words = await _repository.GetAllToPdfAsync();
+            var words = await _wordRepository.GetAllToPdfAsync();
 
             if (words.Count > 0)
             {
@@ -252,6 +252,42 @@ namespace Scradic.Services
         public async Task<PDFInfo> GetLatestPDFInfoCreatedAsync()
         {
             return await _PDFRepository.GetLatestPDFInfoCreatedAsync();
+        }
+
+        public async Task AddToPdf(int wordId)
+        {
+            var word = await _wordRepository.GetWordByIdAsync(wordId);
+
+            if (word != null && word.Pdf == false)
+            {
+                await _wordRepository.UpdateWordPdfAsync(word.Id, true);
+                
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{Globals.Warning} ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"The word \"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(word.Title);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"\" has been successfully added to the PDF!");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else if (word != null && word.Pdf == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{Globals.Warning} ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"The word \"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(word.Title);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"\" is already added to PDF!");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else
+                ErrorMessage.WordNonExistingById();
         }
     }
 }
