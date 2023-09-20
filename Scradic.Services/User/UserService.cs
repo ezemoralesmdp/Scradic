@@ -1,5 +1,6 @@
 ﻿using Scradic.Core.Entities;
-using Scradic.Core.Interfaces;
+using Scradic.Core.Interfaces.Repositories;
+using Scradic.Core.Interfaces.Services;
 using Scradic.Utils.Resources;
 
 namespace Scradic.Services
@@ -49,8 +50,8 @@ namespace Scradic.Services
                 confirm = Console.ReadLine().ToLower();
 
             } while (confirm != "y" && confirm != "n");
-            
-            if(confirm == "y")
+
+            if (confirm == "y")
             {
                 do
                 {
@@ -70,15 +71,15 @@ namespace Scradic.Services
                     user.Email = Console.ReadLine();
 
                 } while (string.IsNullOrEmpty(user.Email));
+
+                await _repository.UpdateUser(user);
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{Globals.Warning} ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Messages.UserUpdateSuccessfully);
             }
-
-            await _repository.UpdateUser(user);
-
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write($"{Globals.Warning} ");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(Messages.UserUpdateSuccessfully);
         }
     }
 }

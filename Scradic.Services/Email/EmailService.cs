@@ -3,8 +3,8 @@ using MailKit.Security;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using MimeKit.Text;
-using Scradic.Core.Interfaces;
-using Scradic.Services.EmailHelper;
+using Scradic.Core.Entities;
+using Scradic.Core.Interfaces.Services;
 
 namespace Scradic.Services
 {
@@ -17,7 +17,7 @@ namespace Scradic.Services
             _config = config;
         }
 
-        public void SendEmailWithAttachmentAsync(MailRequest mailRequest)
+        public void SendEmailWithAttachmentAsync(EmailRequest mailRequest)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config.GetSection("Email:Username").Value));

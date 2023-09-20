@@ -1,6 +1,6 @@
 ﻿using Scradic.Core.Entities;
 
-namespace Scradic.Core.Interfaces
+namespace Scradic.Core.Interfaces.Repositories
 {
     public interface IWordRepository
     {

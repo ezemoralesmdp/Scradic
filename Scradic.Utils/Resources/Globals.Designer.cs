@@ -70,6 +70,15 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Scradic_Words.
+        /// </summary>
+        public static string ScradicWordsFolderName {
+            get {
+                return ResourceManager.GetString("ScradicWordsFolderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [SEE PDF].
         /// </summary>
         public static string SeePDF {

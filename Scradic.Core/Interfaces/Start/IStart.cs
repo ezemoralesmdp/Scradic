@@ -1,4 +1,4 @@
-﻿namespace Scradic.Interfaces
+﻿namespace Scradic.Core.Interfaces
 {
     public interface IStart
     {

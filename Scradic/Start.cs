@@ -1,18 +1,13 @@
 ﻿using HtmlAgilityPack;
-using iText.Layout.Element;
-using iText.Layout;
 using Microsoft.Extensions.Caching.Memory;
 using Scradic.Core.Entities;
 using Scradic.Core.Interfaces;
-using Scradic.Interfaces;
-using Scradic.Services.EmailHelper;
+using Scradic.Core.Interfaces.Services;
 using Scradic.Services.Utils;
 using Scradic.Utils;
 using Scradic.Utils.Resources;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Reflection;
-using iText.Commons.Datastructures;
 
 namespace Scradic
 {
@@ -36,17 +31,18 @@ namespace Scradic
         private readonly IUserService _userService;
         private User? _user;
         private readonly IWordService _service;
+        private readonly IPDFService _PDFService;
         private readonly IEmailService _emailService;
         private bool goSearchCache;
         private string numberPart = "";
-        private readonly string folderName = "Scradic_Words";
 
-        public Start(IMemoryCache memoryCache, IUserService userService, IWordService wordService, IEmailService emailService)
+        public Start(IMemoryCache memoryCache, IUserService userService, IWordService wordService, IPDFService pdfService, IEmailService emailService)
         {
             _service = wordService;
             _cache = memoryCache;
             _emailService = emailService;
             _userService = userService;
+            _PDFService = pdfService;
         }
 
         private async Task GetSingleUser()
@@ -298,17 +294,17 @@ namespace Scradic
                     await _service.GetAllSavedWordsAsync();
 
                 if (inputFormatted == "!pdf")
-                    await _service.CreatePDF();
+                    await _PDFService.CreatePDF();
 
                 if (inputFormatted == "!seepdf")
-                    await _service.SeePDFList();
+                    await _PDFService.SeePDFList();
 
                 if (inputFormatted == "!pdfemail")
                 {
                     try
                     {
                         string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                        string folderPath = Path.Combine(documentsPath, folderName);
+                        string folderPath = Path.Combine(documentsPath, Globals.ScradicWordsFolderName);
                         string pdfPath = "";
                         string pdfFileName = "";
                         long size = 0;
@@ -320,6 +316,8 @@ namespace Scradic
 
                             if (files.Length > 0)
                             {
+                                #region Email preparation
+
                                 var latestFile = files
                                     .Select(filePath => new FileInfo(filePath))
                                     .OrderByDescending(fileInfo => fileInfo.LastWriteTime)
@@ -329,6 +327,35 @@ namespace Scradic
                                 pdfFileName = latestFile.Name;
                                 size = latestFile.Length;
                                 dateCreated = latestFile.LastWriteTime;
+
+                                EmailRequest mailRequest = new EmailRequest()
+                                {
+                                    ToEmail = _user.Email,
+                                    Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
+                                    Body = 
+                                        $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
+                                            $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
+                                            $"<p>{_user.Username}, we send you the latest PDF you have created!</p>" +
+                                            $"<p>File name: <span style =\"font-weight: bolder;\">{pdfFileName}</span></p>" +
+                                            $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(size)}</span></p>" +
+                                            $"<p>File creation date: <span style =\"font-weight: bolder;\">{dateCreated.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
+                                        $"</div>",
+                                    PDFPath = pdfPath,
+                                    PDFFileName = pdfFileName,
+                                    LogoBase64 = Images64.Logo
+                                };
+
+                                _emailService.SendEmailWithAttachmentAsync(mailRequest);
+
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write($"{Globals.Warning} ");
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write($"{Messages.MailSentSuccessfully}: ");
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"{mailRequest.ToEmail}");
+                                Console.ResetColor();
+
+                                #endregion Email preparation
                             }
                             else
                                 Console.WriteLine(Messages.PdfFolderEmpty);
@@ -337,32 +364,6 @@ namespace Scradic
                         {
                             Console.WriteLine(Messages.PdfFolderDoesNotExist);
                         }
-
-                        MailRequest mailRequest = new MailRequest()
-                        {
-                            ToEmail = _user.Email,
-                            Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
-                            Body = $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
-                               $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
-                               $"<p>{_user.Username}, we send you the latest PDF you have created!</p>" +
-                               $"<p>File name: <span style =\"font-weight: bolder;\">{pdfFileName}</span></p>" +
-                               $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(size)}</span></p>" +
-                               $"<p>File creation date: <span style =\"font-weight: bolder;\">{dateCreated.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
-                               $"</div>",
-                            PDFPath = pdfPath,
-                            PDFFileName = pdfFileName,
-                            LogoBase64 = Images64.Logo
-                        };
-
-                        _emailService.SendEmailWithAttachmentAsync(mailRequest);
-
-                        Console.ForegroundColor = ConsoleColor.Yellow;
-                        Console.Write($"{Globals.Warning} ");
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write($"{Messages.MailSentSuccessfully}: ");
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine($"{mailRequest.ToEmail}");
-                        Console.ResetColor();
                     }
                     catch (Exception ex)
                     {

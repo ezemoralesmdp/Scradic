@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Scradic.Core.Entities;
-using Scradic.Core.Interfaces;
+using Scradic.Core.Interfaces.Repositories;
 using Scradic.Infrastructure.Data;
 
 namespace Scradic.Infrastructure.Repositories

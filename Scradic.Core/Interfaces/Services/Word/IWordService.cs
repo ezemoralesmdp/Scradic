@@ -1,6 +1,6 @@
 ﻿using Scradic.Core.Entities;
 
-namespace Scradic.Core.Interfaces
+namespace Scradic.Core.Interfaces.Services
 {
     public interface IWordService
     {
@@ -12,8 +12,6 @@ namespace Scradic.Core.Interfaces
         Task SaveWordAsync(Word word);
         Task AddToPdf(Word word);
         Task ShowTop(int amount);
-        Task CreatePDF();
-        Task SeePDFList();
         Task GetAllSavedWordsInRangeAsync(int start, int? end);
         Task GetAllSavedWordsAsync();
     }
