@@ -362,7 +362,7 @@ namespace Scradic
                         }
                         catch (DirectoryNotFoundException)
                         {
-                            ErrorMessage.PdfFolderDoesNotExist);
+                            ErrorMessage.PdfFolderDoesNotExist();
                         }
                     }
                     catch (Exception ex)
