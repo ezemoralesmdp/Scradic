@@ -48,7 +48,8 @@ namespace Scradic
         private async Task GetSingleUser()
         {
             var user = await _userService.GetSingleUser();
-            _cache.Set(nameof(User), user);
+            if(user != null)
+                _cache.Set(nameof(User), user);
         }
 
         private async Task ShowIncrementAndCachingWord(Word word)
@@ -98,6 +99,10 @@ namespace Scradic
                 if (!string.IsNullOrEmpty(user.Username) && !string.IsNullOrEmpty(user.Email))
                 {
                     await _userService.RegisterSingleUser(user);
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"{Globals.Warning} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine($"User \"{user.Username}\" created successfully!");
                 }
 
