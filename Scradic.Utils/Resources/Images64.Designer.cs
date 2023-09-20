@@ -22,14 +22,14 @@ namespace Scradic.Utils.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Globals {
+    public class Images64 {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Globals() {
+        internal Images64() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Scradic.Utils.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scradic.Utils.Resources.Globals", typeof(Globals).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Scradic.Utils.Resources.Images64", typeof(Images64).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,11 @@ namespace Scradic.Utils.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ANSWER:.
+        ///   Looks up a localized string similar to iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAP+lSURBVHhe7P3Z02xJcieGee6Z33q36q5GAwRAQhzYgDSNKKOJJiNNNuJ/QFIy6YWjJ72Jo3e9zJue9SITJZppRpwFwAwWYm+g0egGGui9qxtdXdVdXV37cm/dutu35p76/TyOZ3rGd9ZcvuXW/d0b3zkZi4eHh0d4eJyt9u7XfnsmCWazcOqPtVpNz2NYHqkvp6flZ94smrV57QswfZZe7UVMUwg4xPzUo+zT2lSPxp/l9zzno54cyyNNRvN6o6QLedHeZb4C/1nwedPqnclknkePs9CemJ+0sgH11DoYx2C/eYxpMB2l9dyneXr+XJH01xyzZnKSx+MyfL4p6rc6PL88Z6jX65l0Nd7pny8b94vVYZjnhfwNjLN6ed5oNGQ6XdZPgmnki5hN [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string Answer {
+        public static string Logo {
             get {
-                return ResourceManager.GetString("Answer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Scradic_Words.
-        /// </summary>
-        public static string ScradicWordsFolderName {
-            get {
-                return ResourceManager.GetString("ScradicWordsFolderName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [SEE PDF].
-        /// </summary>
-        public static string SeePDF {
-            get {
-                return ResourceManager.GetString("SeePDF", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [!].
-        /// </summary>
-        public static string Warning {
-            get {
-                return ResourceManager.GetString("Warning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to [y/n].
-        /// </summary>
-        public static string Y_N {
-            get {
-                return ResourceManager.GetString("Y_N", resourceCulture);
+                return ResourceManager.GetString("Logo", resourceCulture);
             }
         }
     }

@@ -5,9 +5,11 @@ namespace Scradic.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
+        public DbSet<User> User { get; set; }
         public DbSet<Definition> Definition { get; set; }
         public DbSet<Word> Word { get; set; }
         public DbSet<Example> Example { get; set; }
+        public DbSet<PDFInfo> PDFInfo { get; set; }
         public string DbPath { get; }
 
         public AppDbContext()

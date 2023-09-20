@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EnterNewEmail" xml:space="preserve">
+    <value>Enter your new email:</value>
+  </data>
+  <data name="EnterNewUsername" xml:space="preserve">
+    <value>Enter your new username:</value>
+  </data>
   <data name="EnterWordToSearchTranslate_Ask" xml:space="preserve">
     <value>Enter the command or word you want to search/translate:</value>
   </data>
+  <data name="FailedSendEmail" xml:space="preserve">
+    <value>Failed to send email</value>
+  </data>
+  <data name="FirstTime" xml:space="preserve">
+    <value>I see that it is your first time in Scradic, please complete the following information to continue:</value>
+  </data>
   <data name="Goodbye" xml:space="preserve">
     <value>** scradic made by Ezequiel Morales (@els_mrls) **</value>
+  </data>
+  <data name="MailSentSuccessfully" xml:space="preserve">
+    <value>Email successfully sent to email address</value>
   </data>
   <data name="NoWordsAvailable" xml:space="preserve">
     <value>There are no words available. The list is empty.</value>
@@ -155,6 +170,12 @@
   </data>
   <data name="SyntaxSpecifyNumericValue" xml:space="preserve">
     <value>You must specify a numeric value or range (for example: !words15 or !words5-10)</value>
+  </data>
+  <data name="UpdateUser_Ask" xml:space="preserve">
+    <value>Do you want to update your user?</value>
+  </data>
+  <data name="UserUpdateSuccessfully" xml:space="preserve">
+    <value>User successfully updated!</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Welcome to Scradic! If you have any question please type !help</value>

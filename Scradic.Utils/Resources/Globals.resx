@@ -120,6 +120,9 @@
   <data name="Answer" xml:space="preserve">
     <value>ANSWER:</value>
   </data>
+  <data name="ScradicWordsFolderName" xml:space="preserve">
+    <value>Scradic_Words</value>
+  </data>
   <data name="SeePDF" xml:space="preserve">
     <value>[SEE PDF]</value>
   </data>

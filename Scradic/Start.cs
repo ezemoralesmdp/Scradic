@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Scradic.Core.Entities;
 using Scradic.Core.Interfaces;
-using Scradic.Interfaces;
+using Scradic.Core.Interfaces.Services;
 using Scradic.Services.Utils;
 using Scradic.Utils;
 using Scradic.Utils.Resources;
@@ -13,27 +13,43 @@ namespace Scradic
 {
     public class Start : IStart
     {
-        private static readonly HashSet<string> keyWords = new HashSet<string> 
-        {   
+        private static readonly HashSet<string> keyWords = new HashSet<string>
+        {
             "!exit",
+            "!user",
             "!pdf",
             "!help",
             "!remove",
             "!removeall",
             "!clear",
             "!seepdf",
+            "!pdfemail"
         };
 
         private string? inputFormatted = "";
         private readonly IMemoryCache _cache;
+        private readonly IUserService _userService;
+        private User? _user;
         private readonly IWordService _service;
+        private readonly IPDFService _PDFService;
+        private readonly IEmailService _emailService;
         private bool goSearchCache;
         private string numberPart = "";
 
-        public Start(IMemoryCache memoryCache, IWordService wordService)
+        public Start(IMemoryCache memoryCache, IUserService userService, IWordService wordService, IPDFService pdfService, IEmailService emailService)
         {
             _service = wordService;
             _cache = memoryCache;
+            _emailService = emailService;
+            _userService = userService;
+            _PDFService = pdfService;
+        }
+
+        private async Task GetSingleUser()
+        {
+            var user = await _userService.GetSingleUser();
+            if(user != null)
+                _cache.Set(nameof(User), user);
         }
 
         private async Task ShowIncrementAndCachingWord(Word word)
@@ -46,9 +62,52 @@ namespace Scradic
 
         public async Task StartScradic() 
         {
+            await GetSingleUser();
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(Messages.Welcome);
             Console.ResetColor();
+
+            if(!_cache.TryGetValue(nameof(User), out _user))
+            {
+                User user = new();
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{Globals.Warning} ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Messages.FirstTime);
+
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Enter your username: ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    user.Username = Console.ReadLine();
+
+                } while (string.IsNullOrEmpty(user.Username));
+
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Enter your email: ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    user.Email = Console.ReadLine();
+
+                } while (string.IsNullOrEmpty(user.Email));
+
+                if (!string.IsNullOrEmpty(user.Username) && !string.IsNullOrEmpty(user.Email))
+                {
+                    await _userService.RegisterSingleUser(user);
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"{Globals.Warning} ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"User \"{user.Username}\" created successfully!");
+                }
+
+                Console.ResetColor();
+            }
 
             do
             {
@@ -233,14 +292,78 @@ namespace Scradic
                 if (inputFormatted == "!clear")
                     _service.ClearConsole();
 
+                if (inputFormatted == "!user")
+                    await _userService.UpdateUser(_user);
+
                 if (inputFormatted == "!allwords")
                     await _service.GetAllSavedWordsAsync();
 
                 if (inputFormatted == "!pdf")
-                    await _service.CreatePDF();
+                    await _PDFService.CreatePDF();
 
                 if (inputFormatted == "!seepdf")
-                    await _service.SeePDFList();
+                    _PDFService.SeePDFList();
+
+                if (inputFormatted == "!pdfemail")
+                {
+                    try
+                    {
+                        string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                        string folderPath = Path.Combine(documentsPath, Globals.ScradicWordsFolderName);
+
+                        try
+                        {
+                            var files = Directory.GetFiles(folderPath);
+
+                            if (files.Length > 0)
+                            {
+                                #region Email preparation
+
+                                var pdfInfo = await _PDFService.GetLatestPDFInfoCreatedAsync();
+
+                                EmailRequest mailRequest = new EmailRequest()
+                                {
+                                    ToEmail = _user.Email,
+                                    Subject = $"{_user.Username} this is incredible! This week you did a very interesting word search, check them out!",
+                                    Body = 
+                                        $"<div style=\"background-color: #e6bda6; padding: 20px; text-align: center;\">" +
+                                            $"<div><img width=\"250px\" alt=\"logo\" src=\"cid:logo\"/></div>" +
+                                            $"<p>{_user.Username}, we send you the latest PDF you have created!</p>" +
+                                            $"<p>File name: <span style =\"font-weight: bolder;\">{pdfInfo.Name}</span></p>" +
+                                            $"<p>Total words: <span style =\"font-weight: bolder;\">{pdfInfo.TotalWords}</span></p>" +
+                                            $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(pdfInfo.Size)}</span></p>" +
+                                            $"<p>File creation date: <span style =\"font-weight: bolder;\">{pdfInfo.FileCreationDate.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
+                                        $"</div>",
+                                    PDFPath = Path.Combine(pdfInfo.FolderPath, pdfInfo.Name),
+                                    PDFFileName = pdfInfo.Name,
+                                    LogoBase64 = Images64.Logo
+                                };
+
+                                _emailService.SendEmailWithAttachmentAsync(mailRequest);
+
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.Write($"{Globals.Warning} ");
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.Write($"{Messages.MailSentSuccessfully}: ");
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"{mailRequest.ToEmail}");
+                                Console.ResetColor();
+
+                                #endregion Email preparation
+                            }
+                            else
+                                Console.WriteLine(Messages.PdfFolderEmpty);
+                        }
+                        catch (DirectoryNotFoundException)
+                        {
+                            Console.WriteLine(Messages.PdfFolderDoesNotExist);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"{Messages.FailedSendEmail}: {ex.Message}");
+                    }
+                }
 
             } while(inputFormatted != "!exit");
 

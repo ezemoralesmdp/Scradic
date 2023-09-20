@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Scradic.Core.Entities;
-using Scradic.Core.Interfaces;
+using Scradic.Core.Interfaces.Repositories;
 using Scradic.Infrastructure.Data;
 
 namespace Scradic.Infrastructure.Repositories
@@ -13,7 +13,7 @@ namespace Scradic.Infrastructure.Repositories
         public WordRepository(AppDbContext context)
         {
             _context = context;
-            _entity = context.Set<Word>();
+            _entity = _context.Set<Word>();
         }
 
         public async Task<Word> IncrementHints(Word word)
