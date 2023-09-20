@@ -358,11 +358,11 @@ namespace Scradic
                                 #endregion Email preparation
                             }
                             else
-                                Console.WriteLine(Messages.PdfFolderEmpty);
+                                ErrorMessage.PdfFolderEmpty();
                         }
                         catch (DirectoryNotFoundException)
                         {
-                            Console.WriteLine(Messages.PdfFolderDoesNotExist);
+                            ErrorMessage.PdfFolderDoesNotExist);
                         }
                     }
                     catch (Exception ex)
