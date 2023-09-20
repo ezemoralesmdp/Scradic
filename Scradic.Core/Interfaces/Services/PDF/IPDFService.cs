@@ -8,5 +8,6 @@ namespace Scradic.Core.Interfaces.Services
         void SeePDFList();
         Task<PDFInfo> GetLatestPDFInfoCreatedAsync();
         Task AddToPdf(int wordId);
+        Task RemoveToPdf(int wordId);
     }
 }

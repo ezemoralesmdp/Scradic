@@ -165,6 +165,14 @@ namespace Scradic
                         else
                             ErrorMessage.Syntax();
                     }
+                    else if (inputFormatted.StartsWith("!delwordpdf"))
+                    {
+                        string numberPart = inputFormatted.Substring(11);
+                        if (int.TryParse(numberPart, out int wordId))
+                            await _PDFService.RemoveToPdf(wordId);
+                        else
+                            ErrorMessage.Syntax();
+                    }
                     else
                     {
                         goSearchCache = _cache.TryGetValue(inputFormatted, out word);

@@ -289,5 +289,41 @@ namespace Scradic.Services
             else
                 ErrorMessage.WordNonExistingById();
         }
+
+        public async Task RemoveToPdf(int wordId)
+        {
+            var word = await _wordRepository.GetWordByIdAsync(wordId);
+
+            if (word != null && word.Pdf == true)
+            {
+                await _wordRepository.UpdateWordPdfAsync(word.Id, false);
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{Globals.Warning} ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"The word \"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(word.Title);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"\" has been successfully removed from the PDF!");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else if (word != null && word.Pdf == false)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.Write($"{Globals.Warning} ");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"The word \"");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(word.Title);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"\" is already removed from the PDF!");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else
+                ErrorMessage.WordNonExistingById();
+        }
     }
 }
