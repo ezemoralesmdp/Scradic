@@ -15,15 +15,13 @@ namespace Scradic
     {
         private static readonly HashSet<string> keyWords = new HashSet<string>
         {
-            "!exit",
+            "!clear",
             "!user",
             "!pdf",
-            "!help",
-            "!remove",
-            "!removeall",
-            "!clear",
             "!seepdf",
-            "!pdfemail"
+            "!pdfemail",
+            "!help",
+            "!exit"
         };
 
         private string? inputFormatted = "";
@@ -58,6 +56,38 @@ namespace Scradic
             word = await _service.IncrementHints(word);
             if (!string.IsNullOrEmpty(word.Title))
                 _cache.Set(word.Title.ToLower(), word);
+        }
+
+        private static void Help()
+        {
+            var listCommands = new List<string>
+                {
+                    "!clear --> To clear the console",
+                    "!user --> To view and update your current user",
+                    "!allwords --> To see all the words you have searched for",
+                    "!top{number} --> To see the top of the most searched words. Examples: !top10, !top100",
+                    "!addwordpdf{id} --> To add a word already searched in the PDF to be generated. Examples: !addwordpdf1",
+                    "!delwordpdf{id} --> To remove a word from the PDF to be generated",
+                    "!pdf --> To generate a PDF with all the words you saved",
+                    "!seepdf --> To view one of the generated PDFs",
+                    "!pdfemail --> To send an email to yourself with the last generated PDF",
+                    "!help --> To view the help menu",
+                    "!exit --> To end the program",
+                };
+
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("[!] ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Help: ");
+
+            for (int i = 0; i < listCommands.Count; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.Write($"{i + 1}) ");
+                Console.ResetColor();
+                Console.WriteLine(listCommands[i]);
+            }
         }
 
         public async Task StartScradic() 
@@ -304,6 +334,9 @@ namespace Scradic
                         }
                     }
                 }
+
+                if (inputFormatted == "!help")
+                    Help();
 
                 if (inputFormatted == "!clear")
                     _service.ClearConsole();
