@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scradic.Infrastructure", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scradic.Services", "Scradic.Services\Scradic.Services.csproj", "{B595DC86-3C2E-48F6-9EFA-ABE0AE3593A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scradic.Utils", "Scradic.Utils\Scradic.Utils.csproj", "{A65AD2C9-EE07-4C11-AC40-05879A8DD603}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scradic.Utils", "Scradic.Utils\Scradic.Utils.csproj", "{A65AD2C9-EE07-4C11-AC40-05879A8DD603}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ScradicSetup", "ScradicSetup\ScradicSetup.vdproj", "{D87E0516-4463-4653-97EB-F7B5226B106F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,8 @@ Global
 		{A65AD2C9-EE07-4C11-AC40-05879A8DD603}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A65AD2C9-EE07-4C11-AC40-05879A8DD603}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A65AD2C9-EE07-4C11-AC40-05879A8DD603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D87E0516-4463-4653-97EB-F7B5226B106F}.Debug|Any CPU.ActiveCfg = Debug
+		{D87E0516-4463-4653-97EB-F7B5226B106F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
