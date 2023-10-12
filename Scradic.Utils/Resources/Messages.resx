@@ -171,6 +171,9 @@
   <data name="SyntaxSpecifyNumericValue" xml:space="preserve">
     <value>You must specify a numeric value or range (for example: !words15 or !words5-10)</value>
   </data>
+  <data name="TryAgain" xml:space="preserve">
+    <value>Please enter a valid word</value>
+  </data>
   <data name="UpdateUser_Ask" xml:space="preserve">
     <value>Do you want to update your user?</value>
   </data>

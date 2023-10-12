@@ -34,7 +34,12 @@ namespace Scradic
         private bool goSearchCache;
         private string numberPart = "";
 
-        public Start(IMemoryCache memoryCache, IUserService userService, IWordService wordService, IPDFService pdfService, IEmailService emailService)
+        public Start(
+            IMemoryCache memoryCache, 
+            IUserService userService, 
+            IWordService wordService, 
+            IPDFService pdfService, 
+            IEmailService emailService)
         {
             _service = wordService;
             _cache = memoryCache;
@@ -58,7 +63,7 @@ namespace Scradic
                 _cache.Set(word.Title.ToLower(), word);
         }
 
-        private static void Help()
+        private void Help()
         {
             var listCommands = new List<string>
                 {
@@ -89,6 +94,15 @@ namespace Scradic
                 Console.ResetColor();
                 Console.WriteLine(listCommands[i]);
             }
+        }
+
+        private void TryAgain()
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write($"{Globals.Warning} ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"{Messages.TryAgain}");
+            Console.ResetColor();
         }
 
         public async Task StartScradic() 
@@ -332,6 +346,8 @@ namespace Scradic
                                 if (!string.IsNullOrEmpty(word.Title) && Ask.WordToPdf(word.Title))
                                     await _service.AddToPdf(word);
                             }
+                            else
+                                TryAgain();
                         }
                     }
                 }
