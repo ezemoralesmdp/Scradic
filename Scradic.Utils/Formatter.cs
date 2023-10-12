@@ -24,5 +24,20 @@ namespace Scradic.Utils
             }
             return input;
         }
+
+        public static string FormatFileSize(long fileSizeInBytes)
+        {
+            string[] sizes = { "B", "KB", "MB", "GB" };
+            double size = fileSizeInBytes;
+            int unitIndex = 0;
+
+            while (size >= 1024 && unitIndex < sizes.Length - 1)
+            {
+                size /= 1024;
+                unitIndex++;
+            }
+
+            return $"{size:N2} {sizes[unitIndex]}";
+        }
     }
 }

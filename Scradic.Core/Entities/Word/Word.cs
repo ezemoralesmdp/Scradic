@@ -13,6 +13,7 @@ namespace Scradic.Core.Entities
         public List<Example>? Examples { get; set; }
         public bool Pdf { get; set; }
         public int Hits { get; set; } = 1;
+        public DateTime InsertDate { get; set; } = DateTime.Now;
 
         public Word()
         {
