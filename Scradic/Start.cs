@@ -159,7 +159,7 @@ namespace Scradic
                 if (Ask.EnterWordToSearchTranslate(out inputFormatted)) Formatter.SanitizeDataInput(inputFormatted);
                 Word? word = new();
 
-                if (!string.IsNullOrEmpty(inputFormatted) && !keyWords.Contains(inputFormatted))
+                if (!string.IsNullOrEmpty(inputFormatted) && !keyWords.Contains(inputFormatted) && inputFormatted != "!allwords")
                 {
                     if(inputFormatted.StartsWith("!top"))
                     {

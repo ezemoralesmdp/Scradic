@@ -9,5 +9,6 @@ namespace Scradic.Core.Interfaces.Services
         Task<PDFInfo> GetLatestPDFInfoCreatedAsync();
         Task AddToPdf(int wordId);
         Task RemoveToPdf(int wordId);
+        void CleanWordsPDF();
     }
 }

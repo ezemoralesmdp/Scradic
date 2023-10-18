@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_5CB98ED553A548F1B35C906BD915F676"
+        "MsmKey" = "8:_9D9A658B3AAE498D8FF22C2F863EBDA5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -49,6 +49,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -65,6 +73,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -96,7 +120,7 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5CB98ED553A548F1B35C906BD915F676"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9D9A658B3AAE498D8FF22C2F863EBDA5"
             {
             "SourcePath" = "8:C:\\Users\\emorales\\Downloads\\ScradicLogo.ico"
             "TargetName" = "8:ScradicLogo.ico"
@@ -193,7 +217,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ScradicSetup"
         "ProductCode" = "8:{4F9BDB1E-921B-4DB0-9CA7-A143A0A5DC3F}"
-        "PackageCode" = "8:{545156B1-75D1-4EE9-80C5-1571A86E2653}"
+        "PackageCode" = "8:{E0F0FCA3-5456-40DE-B786-B1435B29F285}"
         "UpgradeCode" = "8:{3999CBDF-1DC1-4BC7-8230-A8005948F94F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -313,7 +337,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A11936C1EFA84831A6EC7A0BBB1035D7"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2FBF01BFAFC740AF959BFA8A1724E49D"
             {
             "Name" = "8:Scradic"
             "Arguments" = "8:"
@@ -324,10 +348,10 @@
             "Target" = "8:_FDE23B059B804C9887CF5D924CCD7799"
             "Folder" = "8:_185A91DEC2894404BE42D95A5296D5EB"
             "WorkingFolder" = "8:_F502D4993D664ED9986115A537BDE90C"
-            "Icon" = "8:_5CB98ED553A548F1B35C906BD915F676"
+            "Icon" = "8:_9D9A658B3AAE498D8FF22C2F863EBDA5"
             "Feature" = "8:"
             }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F4C70E6A22AF44EE8F5CD3DFD395F45D"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_599DECCA243C4EFEAAFE61621A828806"
             {
             "Name" = "8:Scradic"
             "Arguments" = "8:"
@@ -338,7 +362,7 @@
             "Target" = "8:_FDE23B059B804C9887CF5D924CCD7799"
             "Folder" = "8:_C9F53A2F3CA941F1954102CD2093792A"
             "WorkingFolder" = "8:_F502D4993D664ED9986115A537BDE90C"
-            "Icon" = "8:_5CB98ED553A548F1B35C906BD915F676"
+            "Icon" = "8:_9D9A658B3AAE498D8FF22C2F863EBDA5"
             "Feature" = "8:"
             }
         }
@@ -742,7 +766,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FDE23B059B804C9887CF5D924CCD7799"
             {
-            "SourcePath" = "8:..\\Scradic\\obj\\Debug\\net7.0\\apphost.exe"
+            "SourcePath" = "8:..\\Scradic\\obj\\Release\\net7.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_F502D4993D664ED9986115A537BDE90C"

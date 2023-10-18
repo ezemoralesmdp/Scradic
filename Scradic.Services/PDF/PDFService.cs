@@ -123,8 +123,11 @@ namespace Scradic.Services
                     //Close document
                     document.Close();
 
+                    //Clean words
+                    CleanWordsPDF();
+
                     #region Save PDFInfo
-                    
+
                     var files = Directory.GetFiles(folderPath);
 
                     if (files.Length > 0)
@@ -173,6 +176,11 @@ namespace Scradic.Services
             }
             else
                 ErrorMessage.NoWordsAvailable();
+        }
+
+        public void CleanWordsPDF()
+        {
+            _wordRepository.CleanWordsPDF();
         }
 
         public void SeePDFList()

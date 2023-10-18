@@ -54,7 +54,8 @@ namespace Scradic.Services
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Translation: ");
                         Console.ResetColor();
-                        Console.WriteLine(definition.Translation);
+                        Console.Write(definition.Translation);
+                        Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.Write("Description: ");
                         Console.ResetColor();
@@ -63,9 +64,9 @@ namespace Scradic.Services
                         Console.WriteLine("------------------------------------------------------------------------------------------------------------------------");
                     }
                 }
+                Console.WriteLine();
                 if (word.Examples.Count > 0)
                 {
-                    Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("[Examples]");
                     Console.ResetColor();

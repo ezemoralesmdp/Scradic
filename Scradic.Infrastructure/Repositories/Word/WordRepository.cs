@@ -86,7 +86,7 @@ namespace Scradic.Infrastructure.Repositories
 
         public async Task<List<Word>> GetTop(int amount)
         {
-            return await _entity.AsQueryable().AsNoTracking().Take(amount).ToListAsync();
+            return await _entity.AsQueryable().AsNoTracking().Take(amount).OrderByDescending(w => w.Hits).ToListAsync();
         }
 
         public async Task<List<Word>> GetAllToPdfAsync()
@@ -97,6 +97,16 @@ namespace Scradic.Infrastructure.Repositories
         public async Task<Word> GetWordByIdAsync(int wordId)
         {
             return await _entity.AsQueryable().AsNoTracking().FirstOrDefaultAsync(w => w.Id == wordId);
+        }
+
+        public void CleanWordsPDF()
+        {
+            var wordsToUpdate = _entity.Where(w => w.Pdf == true).ToList();
+            foreach (var word in wordsToUpdate)
+            {
+                word.Pdf = false;
+            }
+            _context.SaveChanges();
         }
     }
 }
