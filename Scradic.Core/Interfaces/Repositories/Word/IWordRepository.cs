@@ -16,5 +16,6 @@ namespace Scradic.Core.Interfaces.Repositories
         Task<List<Word>> GetAllToPdfAsync();
         Task<Word> GetWordByIdAsync(int wordId);
         void CleanWordsPDF();
+        void UpdateLastSearch(Word word);
     }
 }

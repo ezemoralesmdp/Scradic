@@ -125,7 +125,11 @@ namespace Scradic.Services
                     Console.ResetColor();
                     Console.Write(" | " + topList[i].Title + " | HITS: ");
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.WriteLine(topList[i].Hits);
+                    Console.Write(topList[i].Hits);
+                    Console.ResetColor();
+                    Console.Write(" | LAST SEARCH: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(topList[i].LastSearch);
                     Console.ResetColor();
                 }
             }
@@ -171,6 +175,11 @@ namespace Scradic.Services
                 Console.WriteLine(word.InsertDate.ToString("dd/MM/yyy HH:mm:ss"));
                 Console.ResetColor();
             }
+        }
+
+        public void UpdateLastSearch(Word word)
+        {
+            _repository.UpdateLastSearch(word);
         }
     }
 }

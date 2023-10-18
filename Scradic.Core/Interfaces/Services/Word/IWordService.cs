@@ -14,5 +14,6 @@ namespace Scradic.Core.Interfaces.Services
         Task ShowTop(int amount);
         Task GetAllSavedWordsInRangeAsync(int start, int? end);
         Task GetAllSavedWordsAsync();
+        void UpdateLastSearch(Word word);
     }
 }

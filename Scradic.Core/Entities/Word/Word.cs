@@ -14,6 +14,7 @@ namespace Scradic.Core.Entities
         public bool Pdf { get; set; }
         public int Hits { get; set; } = 1;
         public DateTime InsertDate { get; set; } = DateTime.Now;
+        public DateTime LastSearch { get; set; } = DateTime.Now;
 
         public Word()
         {

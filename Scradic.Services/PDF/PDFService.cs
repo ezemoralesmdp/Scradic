@@ -67,7 +67,7 @@ namespace Scradic.Services
 
                     //Date
                     document.SetTextAlignment(TextAlignment.RIGHT);
-                    document.Add(new Paragraph().Add(new Text(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")).SetItalic()).AddStyle(fontStyle));
+                    document.Add(new Paragraph().Add(new Text(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")).SetItalic()).AddStyle(fontStyle));
                     document.SetTextAlignment(TextAlignment.LEFT);
 
                     document.Add(new Paragraph().Add(new Text("Word index: ").SetBold()).AddStyle(fontStyle));

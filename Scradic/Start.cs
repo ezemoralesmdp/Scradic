@@ -229,7 +229,11 @@ namespace Scradic
                         else if(goSearchCache == false && _service.CheckWordExistsAsync(inputFormatted))
                         {
                             word = await _service.GetWordByTitleAsync(inputFormatted);
-                            if (word != null) await ShowIncrementAndCachingWord(word);
+                            if (word != null)
+                            {
+                                _service.UpdateLastSearch(word);
+                                await ShowIncrementAndCachingWord(word);
+                            }
                         }
                         else
                         {
@@ -400,7 +404,7 @@ namespace Scradic
                                                 $"<p>File name: <span style =\"font-weight: bolder;\">{pdfInfo.Name}</span></p>" +
                                                 $"<p>Total words: <span style =\"font-weight: bolder;\">{pdfInfo.TotalWords}</span></p>" +
                                                 $"<p>Size: <span style =\"font-weight: bolder;\">{Formatter.FormatFileSize(pdfInfo.Size)}</span></p>" +
-                                                $"<p>File creation date: <span style =\"font-weight: bolder;\">{pdfInfo.FileCreationDate.ToString("dd/MM/yyyy HH:mm:ss tt")}</span></p>" +
+                                                $"<p>File creation date: <span style =\"font-weight: bolder;\">{pdfInfo.FileCreationDate.ToString("MM/dd/yyyy HH:mm:ss tt")}</span></p>" +
                                             $"</div>",
                                         PDFPath = Path.Combine(pdfInfo.FolderPath, pdfInfo.Name),
                                         PDFFileName = pdfInfo.Name,

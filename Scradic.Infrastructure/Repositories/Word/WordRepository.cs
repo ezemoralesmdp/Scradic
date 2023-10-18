@@ -108,5 +108,12 @@ namespace Scradic.Infrastructure.Repositories
             }
             _context.SaveChanges();
         }
+
+        public void UpdateLastSearch(Word word)
+        {
+            word.LastSearch = DateTime.Now;
+            _entity.Update(word);
+            _context.SaveChangesAsync();
+        }
     }
 }
